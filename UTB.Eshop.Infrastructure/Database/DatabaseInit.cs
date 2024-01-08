@@ -20,7 +20,8 @@ namespace UTB.Eshop.Infrastructure.Database
                 Name = "Rohlík",
                 Description = "nejlepší rohlík na světě",
                 Price = 4,
-                ImageSrc = "/img/products/produkty-01.jpg"
+                ImageSrc = "/img/products/produkty-01.jpg",
+                Kategory = "Elektronika"
             });
             products.Add(new Product
             {
@@ -28,7 +29,8 @@ namespace UTB.Eshop.Infrastructure.Database
                 Name = "Chleba",
                 Description = "nej chleba ve sluneční soustavě",
                 Price = 50,
-                ImageSrc = "/img/products/produkty-02.jpg"
+                ImageSrc = "/img/products/produkty-02.jpg",
+                Kategory = "Počítačové hry"
             });
             products.Add(new Product
             {
@@ -36,7 +38,8 @@ namespace UTB.Eshop.Infrastructure.Database
                 Name = "Vánočka",
                 Description = "nic moc, ale taky ji máme",
                 Price = 40,
-                ImageSrc = "/img/products/produkty-03.jpg"
+                ImageSrc = "/img/products/produkty-03.jpg",
+                Kategory = "Auta"
             });
             products.Add(new Product
             {
@@ -44,7 +47,8 @@ namespace UTB.Eshop.Infrastructure.Database
                 Name = "bageta",
                 Description = "nejlepší bageta ve vesmíru",
                 Price = 25,
-                ImageSrc = "/img/products/produkty-05.jpg"
+                ImageSrc = "/img/products/produkty-05.jpg",
+                Kategory = "Telefony"
             });
 
             return products;

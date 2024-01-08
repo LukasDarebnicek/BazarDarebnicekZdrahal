@@ -58,6 +58,7 @@ namespace UTB.Eshop.Application.Implementation
                 existingProduct.Name = updatedProduct.Name;
                 existingProduct.Price = updatedProduct.Price;
                 existingProduct.ImageSrc = updatedProduct.ImageSrc;
+                existingProduct.Kategory = updatedProduct.Kategory;
 
                 edited = true;
             }

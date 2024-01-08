@@ -19,5 +19,7 @@ namespace UTB.Eshop.Domain.Entities
         public double Price { get; set; }
 
         public string? ImageSrc { get; set; }
+
+        public string? Kategory { get; set; }
     }
 }

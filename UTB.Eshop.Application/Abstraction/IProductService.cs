@@ -14,5 +14,6 @@ namespace UTB.Eshop.Application.Abstraction
         bool Delete(int id);
         bool Edit(Product updatedProduct);
         Product? SelectById(int id);
+        //Product GetProductById(int id);
     }
 }
