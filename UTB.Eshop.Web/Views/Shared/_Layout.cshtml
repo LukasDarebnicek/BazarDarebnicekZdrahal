@@ -1,10 +1,9 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - UTB.Eshop.Web</title>
+    <title>@ViewData["Title"] - BazarChlapů</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -15,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UTB.Eshop.Web</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BazarChlapů</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -65,11 +64,44 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - UTB.Eshop.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+    @{
+        var isHomePage = Context.Request.Path.Value.Equals("/") || (Context.Request.RouteValues["controller"]?.ToString() == "Home" && Context.Request.RouteValues["action"]?.ToString() == "Index");
+    }
+
+    @if (isHomePage)
+    {
+        <footer>
+            <div class="footer-container">
+                <section class="footer-section">
+                    <h3>O nás</h3>
+                    <p>Naše společnost BazarUwU byla založena v roce 2023 těmi nejlepšími studenty softwarového inženýrství na UTB FAI. a taky je jedním z největších online bazarů v ČR.</p>
+                </section>
+
+                <section class="footer-section">
+                    <h3>Kontakt</h3>
+                    <ul>
+                        <li>Email: info@bazaruwu.cz</li>
+                        <li>Telefon: +420 123 456 789</li>
+                        <li>Adresa: UTB FAI, ZLIN</li>
+                    </ul>
+                </section>
+
+                <section class="footer-section">
+                    <h3>Odkazy</h3>
+                    <ul>
+                        <li><a href="#">Obchodní podmínky</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Zásady ochrany osobních údajů</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 BazarUwU. Všechna práva vyhrazena.</p>
+            </div>
+        </footer>
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Eshop</h1>
+    <h1 class="display-4">Bazar</h1>
 </div>
 
 @{
@@ -13,11 +13,9 @@
     {
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-
                 @for (int i = 0; i < Model.Carousels.Count; ++i)
                 {
                     string active = String.Empty;
-                    //ViewBag.Active = String.Empty;
                     if (i == 0)
                     {
                         active = "active";
@@ -26,7 +24,6 @@
                         <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
                     </div>
                 }
-
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -37,7 +34,6 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-
     }
 }
 
@@ -47,7 +43,6 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
                     @foreach (var product in Model.Products)
                     {
                         <div class="col mb-5">
@@ -85,6 +80,6 @@
 }
 
 @section Styles
-{
+    {
     <link rel="stylesheet" href="~/css/shop_home.css" asp-append-version="true" />
 }
