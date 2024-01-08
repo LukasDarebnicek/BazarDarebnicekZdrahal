@@ -24,6 +24,7 @@ namespace UTB.Eshop.Web.Areas.Admin.Controllers
         }
 
         [HttpGet] //vychozi atribut pro akcni metody
+
         public IActionResult Create()
         {
             return View();
