@@ -9,7 +9,7 @@ using UTB.Eshop.Infrastructure.Database;
 
 namespace UTB.Eshop.Application.Implementation
 {
-    public class ProductDFService : IProductService
+    public class ProductDFService
     {
         public IList<Product> Select()
         {

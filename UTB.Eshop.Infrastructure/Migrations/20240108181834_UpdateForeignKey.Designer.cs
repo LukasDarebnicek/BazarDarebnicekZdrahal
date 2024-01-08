@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UTB.Eshop.Infrastructure.Database;
 
@@ -10,9 +11,11 @@ using UTB.Eshop.Infrastructure.Database;
 namespace UTB.Eshop.Infrastructure.Migrations
 {
     [DbContext(typeof(EshopDbContext))]
-    partial class EshopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108181834_UpdateForeignKey")]
+    partial class UpdateForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,9 +265,6 @@ namespace UTB.Eshop.Infrastructure.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Products");
@@ -277,8 +277,7 @@ namespace UTB.Eshop.Infrastructure.Migrations
                             ImageSrc = "/img/products/produkty-01.jpg",
                             Kategory = "Elektronika",
                             Name = "Rohlík",
-                            Price = 4.0,
-                            UserId = 0
+                            Price = 4.0
                         },
                         new
                         {
@@ -287,8 +286,7 @@ namespace UTB.Eshop.Infrastructure.Migrations
                             ImageSrc = "/img/products/produkty-02.jpg",
                             Kategory = "Počítačové hry",
                             Name = "Chleba",
-                            Price = 50.0,
-                            UserId = 0
+                            Price = 50.0
                         },
                         new
                         {
@@ -297,8 +295,7 @@ namespace UTB.Eshop.Infrastructure.Migrations
                             ImageSrc = "/img/products/produkty-03.jpg",
                             Kategory = "Auta",
                             Name = "Vánočka",
-                            Price = 40.0,
-                            UserId = 0
+                            Price = 40.0
                         },
                         new
                         {
@@ -307,8 +304,7 @@ namespace UTB.Eshop.Infrastructure.Migrations
                             ImageSrc = "/img/products/produkty-05.jpg",
                             Kategory = "Telefony",
                             Name = "bageta",
-                            Price = 25.0,
-                            UserId = 0
+                            Price = 25.0
                         });
                 });
 

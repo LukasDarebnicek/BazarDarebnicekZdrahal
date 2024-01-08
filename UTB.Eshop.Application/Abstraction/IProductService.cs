@@ -14,6 +14,8 @@ namespace UTB.Eshop.Application.Abstraction
         bool Delete(int id);
         bool Edit(Product updatedProduct);
         Product? SelectById(int id);
+        public IList<Product> SelectByUser(int userId);
         //Product GetProductById(int id);
+
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace UTB.Eshop.Domain.Entities
 {
@@ -21,5 +23,8 @@ namespace UTB.Eshop.Domain.Entities
         public string? ImageSrc { get; set; }
 
         public string? Kategory { get; set; }
+
+        //[ForeignKey (nameof(Entity<int>.Id))]
+        public int UserId { get; set; }
     }
 }

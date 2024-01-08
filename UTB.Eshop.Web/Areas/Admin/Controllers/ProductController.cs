@@ -4,22 +4,33 @@ using UTB.Eshop.Domain.Entities;
 using UTB.Eshop.Infrastructure.Database;
 using Microsoft.AspNetCore.Authorization;
 using UTB.Eshop.Infrastructure.Identity.Enums;
+using Microsoft.AspNetCore.Identity;
+using UTB.Eshop.Infrastructure.Identity;
 
 namespace UTB.Eshop.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager))]
+    [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager) + ", " + nameof(Roles.Customer))]
     public class ProductController : Controller
     {
         IProductService _productService;
-        public ProductController(IProductService productService)
+        UserManager<User> _userManager;
+        public ProductController(IProductService productService, UserManager<User> userManager)
         {
             _productService = productService;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            IList<Product> products = _productService.Select();
+            User user = _userManager.GetUserAsync(User).Result;
+            if(user.Id == 1 || user.Id == 2)
+            {
+                IList<Product> products1 = _productService.Select();
+                return View(products1);
+            }
+            
+            IList<Product> products = _productService.SelectByUser(user.Id);
             return View(products);
         }
 
@@ -33,6 +44,8 @@ namespace UTB.Eshop.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Product product)
         {
+            User user = _userManager.GetUserAsync(User).Result;
+            product.UserId = user.Id;
             _productService.Create(product);
 
             return RedirectToAction(nameof(ProductController.Index));

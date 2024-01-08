@@ -74,5 +74,12 @@ namespace UTB.Eshop.Application.Implementation
             Product selectedProduct = _eshopDbContext.Products.FirstOrDefault(prod => prod.Id == id);
             return selectedProduct;
         }
+
+
+        public IList<Product> SelectByUser(int userId)
+        {
+            return _eshopDbContext.Products.Where(x=>x.UserId==userId).ToList();
+        }
+
     }
 }
