@@ -4,109 +4,111 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bazar</h1>
-</div>
-
-<div id="categoryFilter" class="mb-4">
-    <label>Filter by Category:</label>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Auta">
-        <label class="form-check-label">Auta</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Elektronika">
-        <label class="form-check-label">Elektronika</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Domácnost">
-        <label class="form-check-label">Domácnost</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Dvůr a zahrada">
-        <label class="form-check-label">Dvůr a zahrada</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Hračky">
-        <label class="form-check-label">Hračky</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Zvířata">
-        <label class="form-check-label">Zvířata</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Sport">
-        <label class="form-check-label">Sport</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Oblečení">
-        <label class="form-check-label">Oblečení</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input type="checkbox" class="form-check-input category-filter" value="Ostatní">
-        <label class="form-check-label">Ostatní</label>
-    </div>
-</div>
-
-@{
-    if (Model != null && Model.Carousels != null && Model.Carousels.Count > 0)
-    {
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @for (int i = 0; i < Model.Carousels.Count; ++i)
-                {
-                    string active = i == 0 ? "active" : "";
-                    <div class="carousel-item @active">
-                        <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
-                    </div>
-                }
+<div class="container">
+    <div class="row">
+        <div id="categoryFilter" class="col-md-2 mb-4 fixed-top" style="margin-top: 60px; padding-left: 15px;">
+            <div><label>Filter by Category:</label></div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Auta">
+                <label class="form-check-label">Auta</label>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Elektronika">
+                <label class="form-check-label">Elektronika</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Domácnost">
+                <label class="form-check-label">Domácnost</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Dvůr a zahrada">
+                <label class="form-check-label">Dvůr a zahrada</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Hračky">
+                <label class="form-check-label">Hračky</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Zvířata">
+                <label class="form-check-label">Zvířata</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Sport">
+                <label class="form-check-label">Sport</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Oblečení">
+                <label class="form-check-label">Oblečení</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input category-filter" value="Ostatní">
+                <label class="form-check-label">Ostatní</label>
+            </div>
         </div>
-    }
-}
+    </div>
 
-@{
-    if (Model != null && Model.Products != null && Model.Products.Count > 0)
-    {
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    @foreach (var product in Model.Products)
+    <div class="col-md-10" style="margin-top: 60px; margin-left: 240px;">
+        <div class="text-center">
+            <h1 class="display-4">Bazar</h1>
+        </div>
+
+        @if (Model != null && Model.Carousels != null && Model.Carousels.Count > 0)
+        {
+            <div id="carouselExampleControls" class="carousel slide col-lg-6 mx-auto" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Carousels.Count; ++i)
                     {
-                        <div class="col mb-5 category-item" data-categories="@product.Kategory">
-                            <div class="card h-100">
-                                <!-- Product image-->
-                                <img class="card-img-top" src="@product.ImageSrc" alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder">@product.Name</h5>
-                                        <!-- Product description -->
-                                        <p class="text-muted">@product.Description</p>
-                                        <!-- Product category -->
-                                        <p class="text-muted">@product.Kategory</p>
-                                        <!-- Product price-->
-                                        <h6 class="text-dark">@product.Price CZK</h6>
-                                    </div>
-                                </div>
-                            </div>
+                        string active = i == 0 ? "active" : "";
+                        <div class="carousel-item @active">
+                            <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
                         </div>
                     }
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-        </section>
-    }
-}
+        }
 
+        @if (Model != null && Model.Products != null && Model.Products.Count > 0)
+        {
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="col mb-5 category-item" data-categories="@product.Kategory">
+                                <div class="card h-100 product-card">
+                                    <div class="product-image-container">
+                                        <img class="card-img-top" src="@product.ImageSrc" alt="..." />
+                                        <div class="product-hover-details">
+                                            <h5 class="fw-bolder text-white">@product.Name</h5>
+                                            <p class="text-white">@product.Description</p>
+                                            <p class="text-white">@product.Kategory</p>
+                                            <h6 class="text-dark text-white">@product.Price CZK</h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder">@product.Name</h5>
+                                            <h6 class="text-dark">@product.Price CZK</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+</div>
 
 @section Scripts
     {
@@ -114,6 +116,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             var categoryFilterCheckboxes = document.querySelectorAll('.category-filter');
             var categoryItems = document.querySelectorAll('.category-item');
+            var productCards = document.querySelectorAll('.product-card');
 
             categoryFilterCheckboxes.forEach(function (checkbox) {
                 checkbox.addEventListener('change', function () {
@@ -132,11 +135,54 @@
                     });
                 });
             });
+
+            productCards.forEach(function (card) {
+                card.addEventListener('mouseenter', function () {
+                    this.querySelector('.product-hover-details').style.display = 'flex';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    this.querySelector('.product-hover-details').style.display = 'none';
+                });
+            });
         });
     </script>
 }
 
 @section Styles
     {
+    <style>
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-hover-details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+            .product-hover-details h5,
+            .product-hover-details p,
+            .product-hover-details h6 {
+                margin: 0;
+                padding: 5px;
+            }
+
+        #categoryFilter {
+            padding-top: 20px;
+        }
+    </style>
     <link rel="stylesheet" href="~/css/shop_home.css" asp-append-version="true" />
 }

@@ -76,13 +76,13 @@ namespace UTB.Eshop.Infrastructure.Database
             carousels.Add(new Carousel()
             {
                 Id = 2,
-                ImageSrc = "/img/carousel/Information-Technology-1-1.jpg",
+                ImageSrc = "/img/carousel/silver-car.jpg",
                 ImageAlt = "Second"
             });
             carousels.Add(new Carousel()
             {
                 Id = 3,
-                ImageSrc = "/img/carousel/itec-index-banner.jpg",
+                ImageSrc = "/img/carousel/sekacka.jpg",
                 ImageAlt = "Third"
             });
 

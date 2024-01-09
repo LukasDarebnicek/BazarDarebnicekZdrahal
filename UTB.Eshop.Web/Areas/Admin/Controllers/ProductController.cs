@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UTB.Eshop.Application.Abstraction;
 using UTB.Eshop.Domain.Entities;
-using UTB.Eshop.Infrastructure.Database;
 using Microsoft.AspNetCore.Authorization;
-using UTB.Eshop.Infrastructure.Identity.Enums;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using UTB.Eshop.Infrastructure.Identity.Enums;
 using UTB.Eshop.Infrastructure.Identity;
 
 namespace UTB.Eshop.Web.Areas.Admin.Controllers
@@ -13,87 +17,101 @@ namespace UTB.Eshop.Web.Areas.Admin.Controllers
     [Authorize(Roles = nameof(Roles.Admin) + ", " + nameof(Roles.Manager) + ", " + nameof(Roles.Customer))]
     public class ProductController : Controller
     {
-        IProductService _productService;
-        UserManager<User> _userManager;
-        public ProductController(IProductService productService, UserManager<User> userManager)
+        private readonly IProductService _productService;
+        private readonly UserManager<User> _userManager;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public ProductController(IProductService productService, UserManager<User> userManager, IWebHostEnvironment hostingEnvironment)
         {
             _productService = productService;
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
         {
             User user = _userManager.GetUserAsync(User).Result;
-            if(user.Id == 1 || user.Id == 2)
-            {
-                IList<Product> products1 = _productService.Select();
-                return View(products1);
-            }
-            
-            IList<Product> products = _productService.SelectByUser(user.Id);
+            IList<Product> products = (user.Id == 1 || user.Id == 2) ? _productService.Select() : _productService.SelectByUser(user.Id);
+
             return View(products);
         }
 
-        [HttpGet] //vychozi atribut pro akcni metody
-
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product product, IFormFile image)
         {
             User user = _userManager.GetUserAsync(User).Result;
             product.UserId = user.Id;
+
+            if (image != null && image.Length > 0)
+            {
+                // Generování unikátního názvu pro nový soubor
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+
+                // Vytvoření cesty k novému souboru v složce wwwroot/img/products
+                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "img", "products", uniqueFileName);
+
+                // Kopírování souboru
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+
+                // Uložení cesty do databáze
+                product.ImageSrc = "/img/products/" + uniqueFileName;
+            }
+
             _productService.Create(product);
 
-            return RedirectToAction(nameof(ProductController.Index));
+            return RedirectToAction(nameof(Index));
         }
+
+
 
         public IActionResult Delete(int id)
         {
             bool deleted = _productService.Delete(id);
 
-            if (deleted)
-                return RedirectToAction(nameof(ProductController.Index));
-            else
-                return NotFound();
+            return deleted ? RedirectToAction(nameof(Index)) : NotFound();
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            // Načtěte produkt z databáze nebo jiného zdroje podle id
             Product product = _productService.SelectById(id);
 
-            if (product == null)
-            {
-                return NotFound(); // Můžete také vrátit 404, pokud produkt s daným ID není nalezen.
-            }
-
-            return View(product);
+            return product != null ? View(product) : NotFound();
         }
 
         [HttpPost]
-        public IActionResult Edit(Product updatedProduct)
+        public IActionResult Edit(Product updatedProduct, IFormFile image)
         {
-            // Pokud je model neplatný, zobrazte pohled s chybami
             if (!ModelState.IsValid)
             {
                 return View(updatedProduct);
             }
 
-            // Zavolejte metodu pro editaci produktu v ProductService
+            if (image != null && image.Length > 0)
+            {
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "img", "products");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+
+                updatedProduct.ImageSrc = "/img/products/" + uniqueFileName;
+            }
+
             bool edited = _productService.Edit(updatedProduct);
 
-            if (edited)
-            {
-                return RedirectToAction(nameof(Index)); // Přesměrování na seznam produktů po úspěšné úpravě
-            }
-            else
-            {
-                return View(updatedProduct);
-            }
+            return edited ? RedirectToAction(nameof(Index)) : View(updatedProduct);
         }
     }
 }

@@ -5,7 +5,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Id" />
     <div class="mb-3">
         <label class="form-label" asp-for="Name">Name</label>
@@ -21,7 +21,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="ImageSrc">Image Source</label>
-        <input class="form-control" asp-for="ImageSrc">
+        <input type="file" class="form-control" asp-for="ImageSrc" accept="image/*">
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Kategory">Kategory</label>
