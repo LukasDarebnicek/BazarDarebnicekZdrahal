@@ -12,7 +12,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Description">Description</label>
-        <input class="form-control" asp-for="Description">
+        <textarea class="form-control" rows="5" asp-for="Description"></textarea>
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Price">Price</label>
@@ -24,7 +24,27 @@
     </div>
     <div class="mb-3">
         <label class="form-label" asp-for="Kategory">Kategory</label>
-        <input class="form-control" asp-for="Kategory">
+        <select class="form-select" asp-for="Kategory">
+            <option value="Auta">Auta</option>
+            <option value="Elektronika">Elektronika</option>
+            <option value="Domácnost">Domácnost</option>
+            <option value="Dvůr a zahrada">Dvůr a zahrada</option>
+            <option value="Hračky">Hračky</option>
+            <option value="Zvířata">Zvířata</option>
+            <option value="Sport">Sport</option>
+            <option value="Oblečení">Oblečení</option>
+            <option value="Ostatní">Ostatní</option>
+        </select>
     </div>
+    <!--
+    <div class="mb-3">
+        <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
+        <input class="form-control" asp-for="PhoneNumber">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Email">Email</label>
+        <input type="email" class="form-control" asp-for="Email">
+    </div>
+    -->
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

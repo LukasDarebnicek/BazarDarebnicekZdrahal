@@ -21,8 +21,12 @@ namespace UTB.Eshop.Domain.Entities
         public double Price { get; set; }
 
         public string? ImageSrc { get; set; }
-
+        
         public string? Kategory { get; set; }
+        
+        //public double? PhoneNumber { get; set; }
+
+       // public string? Email { get; set; }
 
         //[ForeignKey (nameof(Entity<int>.Id))]
         public int UserId { get; set; }

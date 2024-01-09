@@ -8,6 +8,46 @@
     <h1 class="display-4">Bazar</h1>
 </div>
 
+<div id="categoryFilter" class="mb-4">
+    <label>Filter by Category:</label>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Auta">
+        <label class="form-check-label">Auta</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Elektronika">
+        <label class="form-check-label">Elektronika</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Domácnost">
+        <label class="form-check-label">Domácnost</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Dvůr a zahrada">
+        <label class="form-check-label">Dvůr a zahrada</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Hračky">
+        <label class="form-check-label">Hračky</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Zvířata">
+        <label class="form-check-label">Zvířata</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Sport">
+        <label class="form-check-label">Sport</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Oblečení">
+        <label class="form-check-label">Oblečení</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input type="checkbox" class="form-check-input category-filter" value="Ostatní">
+        <label class="form-check-label">Ostatní</label>
+    </div>
+</div>
+
 @{
     if (Model != null && Model.Carousels != null && Model.Carousels.Count > 0)
     {
@@ -15,11 +55,7 @@
             <div class="carousel-inner">
                 @for (int i = 0; i < Model.Carousels.Count; ++i)
                 {
-                    string active = String.Empty;
-                    if (i == 0)
-                    {
-                        active = "active";
-                    }
+                    string active = i == 0 ? "active" : "";
                     <div class="carousel-item @active">
                         <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
                     </div>
@@ -45,7 +81,7 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     @foreach (var product in Model.Products)
                     {
-                        <div class="col mb-5">
+                        <div class="col mb-5 category-item" data-categories="@product.Kategory">
                             <div class="card h-100">
                                 <!-- Product image-->
                                 <img class="card-img-top" src="@product.ImageSrc" alt="..." />
@@ -54,8 +90,12 @@
                                     <div class="text-center">
                                         <!-- Product name-->
                                         <h5 class="fw-bolder">@product.Name</h5>
+                                        <!-- Product description -->
+                                        <p class="text-muted">@product.Description</p>
+                                        <!-- Product category -->
+                                        <p class="text-muted">@product.Kategory</p>
                                         <!-- Product price-->
-                                        @product.Price CZK
+                                        <h6 class="text-dark">@product.Price CZK</h6>
                                     </div>
                                 </div>
                             </div>
@@ -65,6 +105,34 @@
             </div>
         </section>
     }
+}
+
+@section Scripts
+    {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var categoryFilterCheckboxes = document.querySelectorAll('.category-filter');
+            var categoryItems = document.querySelectorAll('.category-item');
+
+            categoryFilterCheckboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    var selectedCategories = Array.from(categoryFilterCheckboxes)
+                        .filter(function (cb) { return cb.checked; })
+                        .map(function (cb) { return cb.value; });
+
+                    categoryItems.forEach(function (item) {
+                        var itemCategories = item.dataset.categories.split(',');
+
+                        if (selectedCategories.length === 0 || selectedCategories.some(function (category) { return itemCategories.includes(category); })) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 }
 
 @section Styles

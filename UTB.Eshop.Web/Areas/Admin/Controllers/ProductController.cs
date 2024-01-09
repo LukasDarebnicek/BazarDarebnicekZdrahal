@@ -95,7 +95,5 @@ namespace UTB.Eshop.Web.Areas.Admin.Controllers
                 return View(updatedProduct);
             }
         }
-
-
     }
 }

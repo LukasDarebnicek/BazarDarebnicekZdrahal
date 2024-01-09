@@ -59,6 +59,9 @@ namespace UTB.Eshop.Application.Implementation
                 existingProduct.Price = updatedProduct.Price;
                 existingProduct.ImageSrc = updatedProduct.ImageSrc;
                 existingProduct.Kategory = updatedProduct.Kategory;
+               // existingProduct.PhoneNumber = updatedProduct.PhoneNumber;
+               // existingProduct.Email = updatedProduct.Email;
+
 
                 edited = true;
             }

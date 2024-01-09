@@ -11,5 +11,6 @@ namespace UTB.Eshop.Application.ViewModels
     {
         public IList<Carousel> Carousels { get; set; }
         public IList<Product> Products { get; set; }
+        public IList<Product> Kategory { get; set; }
     }
 }

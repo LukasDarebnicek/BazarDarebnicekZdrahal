@@ -21,7 +21,10 @@ namespace UTB.Eshop.Infrastructure.Database
                 Description = "nejlepší rohlík na světě",
                 Price = 4,
                 ImageSrc = "/img/products/produkty-01.jpg",
-                Kategory = "Elektronika"
+                Kategory = "Elektronika",
+               // PhoneNumber = 777666555,
+               // Email = "a@seznam.cz"
+
             });
             products.Add(new Product
             {
@@ -30,7 +33,9 @@ namespace UTB.Eshop.Infrastructure.Database
                 Description = "nej chleba ve sluneční soustavě",
                 Price = 50,
                 ImageSrc = "/img/products/produkty-02.jpg",
-                Kategory = "Počítačové hry"
+                Kategory = "Počítačové hry",
+               // PhoneNumber = 999888777,
+               //Email = "b@seznam.cz"
             });
             products.Add(new Product
             {
@@ -39,7 +44,9 @@ namespace UTB.Eshop.Infrastructure.Database
                 Description = "nic moc, ale taky ji máme",
                 Price = 40,
                 ImageSrc = "/img/products/produkty-03.jpg",
-                Kategory = "Auta"
+                Kategory = "Auta",
+                //PhoneNumber = 111222333,
+                //Email = "c@seznam.cz"
             });
             products.Add(new Product
             {
@@ -48,7 +55,9 @@ namespace UTB.Eshop.Infrastructure.Database
                 Description = "nejlepší bageta ve vesmíru",
                 Price = 25,
                 ImageSrc = "/img/products/produkty-05.jpg",
-                Kategory = "Telefony"
+                Kategory = "Telefony",
+                //PhoneNumber = 111999555,
+                //Email = "d@seznam.cz"
             });
 
             return products;
