@@ -11,10 +11,14 @@ namespace UTB.Eshop.Application.Implementation
 {
     public class ProductService : IProductService
     {
+        IFileUploadService _fileUploadService;
+
+
         EshopDbContext _eshopDbContext;
-        public ProductService(EshopDbContext eshopDbContext)
+        public ProductService(EshopDbContext eshopDbContext, IFileUploadService fileUploadService)
         {
             _eshopDbContext = eshopDbContext;
+            _fileUploadService = fileUploadService;
         }
 
         public IList<Product> Select()
@@ -24,6 +28,9 @@ namespace UTB.Eshop.Application.Implementation
 
         public void Create(Product product)
         {
+
+            string imageSrc = _fileUploadService.FileUpload(product.Image, Path.Combine("img", "products"));
+            product.ImageSrc = imageSrc;
             //pridani produktu
             if (_eshopDbContext.Products != null)
             {
@@ -61,8 +68,8 @@ namespace UTB.Eshop.Application.Implementation
                 existingProduct.Price = updatedProduct.Price;
                 existingProduct.ImageSrc = updatedProduct.ImageSrc;
                 existingProduct.Kategory= updatedProduct.Kategory;
-                //existingProduct.PhoneNumber = updatedProduct.PhoneNumber;
-                //existingProduct.Email = updatedProduct.Email;
+                existingProduct.PhoneNumber = updatedProduct.PhoneNumber;
+                existingProduct.Email = updatedProduct.Email;
                 _eshopDbContext.SaveChanges();
                 edited = true;
             }

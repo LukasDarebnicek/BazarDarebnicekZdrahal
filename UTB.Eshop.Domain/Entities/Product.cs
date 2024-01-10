@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 
 namespace UTB.Eshop.Domain.Entities
@@ -21,12 +22,15 @@ namespace UTB.Eshop.Domain.Entities
         public double Price { get; set; }
 
         public string? ImageSrc { get; set; }
+
+        [NotMapped]
+        public IFormFile? Image { get; set; }
         
         public string? Kategory { get; set; }
         
-        //public double? PhoneNumber { get; set; }
+        public double? PhoneNumber { get; set; }
 
-       // public string? Email { get; set; }
+        public string? Email { get; set; }
 
         //[ForeignKey (nameof(Entity<int>.Id))]
         public int UserId { get; set; }

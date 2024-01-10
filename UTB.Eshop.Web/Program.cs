@@ -48,11 +48,14 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider 
+    => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
 
 builder.Services.AddScoped<IAccountService, AccountIdentityService>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
+
 
 var app = builder.Build();
 
