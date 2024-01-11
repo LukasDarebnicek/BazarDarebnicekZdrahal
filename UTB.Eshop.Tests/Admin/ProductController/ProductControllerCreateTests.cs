@@ -1,59 +1,72 @@
-﻿using System;
-using System.Diagnostics;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-using Moq;
-using UTB.Eshop.Application.Abstraction;
-using UTB.Eshop.Domain.Entities;
-using UTB.Eshop.Infrastructure.Database;
+﻿using Xunit;
 using UTB.Eshop.Web.Areas.Admin.Controllers;
+using UTB.Eshop.Application.Abstraction;
+using Moq;
+using Microsoft.AspNetCore.Mvc;
+using UTB.Eshop.Domain.Entities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using UTB.Eshop.Infrastructure.Identity;
 
 namespace UTB.Eshop.Tests.Admin.ProductController
 {
-    public class ProductControllerCreateTests
-    {/*
+    public class ProductControllerTests
+    {
         [Fact]
-        public void Create_success()
+        public void Delete_ProductExists_ReturnsRedirectToActionResult()
         {
-            //Arrange
-            DatabaseFake.Products.Clear();
+            // Arrange
+            int productId = 1;
             Mock<IProductService> productServiceMock = new Mock<IProductService>();
-            productServiceMock.Setup(productService => productService.Create(It.IsAny<Product>()))
-                                        .Callback<Product>(product => DatabaseFake.Products.Add(product));
+            productServiceMock.Setup(productService => productService.Delete(productId))
+                .Returns(true); // Simuluje úspěšné smazání
 
-            var product = GetProduct();
+            Mock<UserManager<User>> userManagerMock = GetUserManagerMock();
+            Mock<IWebHostEnvironment> hostingEnvironmentMock = new Mock<IWebHostEnvironment>();
 
-            var productController = new ProductController(productServiceMock.Object);
+            var productController = new Web.Areas.Admin.Controllers.ProductController(
+                productServiceMock.Object, userManagerMock.Object, hostingEnvironmentMock.Object
+            );
 
+            // Act
+            var actionResult = productController.Delete(productId);
 
-            //Act
-            var actionResult = productController.Create(product);
-
-
-            //Assert
+            // Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);
-            Assert.NotNull(redirectToActionResult.ActionName);
             Assert.Equal(nameof(Web.Areas.Admin.Controllers.ProductController.Index), redirectToActionResult.ActionName);
 
-            Assert.NotEmpty(DatabaseFake.Products);
-            Assert.Single(DatabaseFake.Products);
-        }*/
-
-        Product GetProduct()
-        {
-            return new Product()
-            {
-                Id = 1,
-                Name = "Produkt",
-                Price = 1.0,
-                Description = String.Empty,
-                ImageSrc = "/superimage.jpeg"
-            };
+            productServiceMock.Verify(productService => productService.Delete(productId), Times.Once);
         }
 
+        [Fact]
+        public void Delete_ProductNotExists_ReturnsNotFoundResult()
+        {
+            // Arrange
+            int productId = 1;
+            Mock<IProductService> productServiceMock = new Mock<IProductService>();
+            productServiceMock.Setup(productService => productService.Delete(productId))
+                .Returns(false); // Simuluje neúspěšné smazání
 
-        //test doplnit
+            Mock<UserManager<User>> userManagerMock = GetUserManagerMock();
+            Mock<IWebHostEnvironment> hostingEnvironmentMock = new Mock<IWebHostEnvironment>();
+
+            var productController = new Web.Areas.Admin.Controllers.ProductController(
+                productServiceMock.Object, userManagerMock.Object, hostingEnvironmentMock.Object
+            );
+
+            // Act
+            var actionResult = productController.Delete(productId);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(actionResult);
+
+            productServiceMock.Verify(productService => productService.Delete(productId), Times.Once);
+        }
+
+        private Mock<UserManager<User>> GetUserManagerMock()
+        {
+            var store = new Mock<IUserStore<User>>();
+            return new Mock<UserManager<User>>(store.Object, null, null, null, null, null, null, null, null);
+        }
     }
 }
