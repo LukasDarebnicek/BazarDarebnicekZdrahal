@@ -1,52 +1,87 @@
 ﻿@model Product
 
 @{
-    ViewData["Title"] = "Product - Edit";
+    ViewData["Title"] = "Advertisement - Edit";
 }
-<h1>@ViewData["Title"]</h1>
 
-<form asp-action="Edit" method="post" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
-    <div class="mb-3">
-        <label class="form-label" asp-for="Name">Name</label>
-        <input class="form-control" asp-for="Name">
+@section Styles
+    {
+    <link rel="stylesheet" href="~/css/login.css" />
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">@ViewData["Title"]</h2>
+                    <hr>
+
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Name">Name</label>
+                            <input class="form-control" asp-for="Name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Description">Description</label>
+                            <textarea class="form-control" rows="5" asp-for="Description"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Price">Price</label>
+                            <input class="form-control" asp-for="Price">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Image">Image Source</label>
+                            <input type="file" class="form-control" asp-for="Image" accept="image/*">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Kategory">Kategory</label>
+                            <select class="form-select" asp-for="Kategory">
+                                <option value="Auta">Auta</option>
+                                <option value="Elektronika">Elektronika</option>
+                                <option value="Domácnost">Domácnost</option>
+                                <option value="Dvůr a zahrada">Dvůr a zahrada</option>
+                                <option value="Hračky">Hračky</option>
+                                <option value="Zvířata">Zvířata</option>
+                                <option value="Sport">Sport</option>
+                                <option value="Oblečení">Oblečení</option>
+                                <option value="Ostatní">Ostatní</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
+                            <input class="form-control" asp-for="PhoneNumber">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" asp-for="Email">Email</label>
+                            <input type="email" class="form-control" asp-for="Email">
+                        </div>
+
+                        <input type="hidden" class="form-control" asp-for="UserId">
+
+                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+
+                        <hr>
+
+                        <p class="text-center">
+                            <a asp-action="Index" class="btn btn-outline-primary" id="btn-back">Back to List</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Description">Description</label>
-        <textarea class="form-control" rows="5" asp-for="Description"></textarea>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Price">Price</label>
-        <input class="form-control" asp-for="Price">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Image">Image Source</label>
-        <input type="file" class="form-control" asp-for="Image" accept="image/*">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Kategory">Kategory</label>
-        <select class="form-select" asp-for="Kategory">
-            <option value="Auta">Auta</option>
-            <option value="Elektronika">Elektronika</option>
-            <option value="Domácnost">Domácnost</option>
-            <option value="Dvůr a zahrada">Dvůr a zahrada</option>
-            <option value="Hračky">Hračky</option>
-            <option value="Zvířata">Zvířata</option>
-            <option value="Sport">Sport</option>
-            <option value="Oblečení">Oblečení</option>
-            <option value="Ostatní">Ostatní</option>
-        </select>
-    </div>
-    
-    <div class="mb-3">
-        <label class="form-label" asp-for="PhoneNumber">Phone Number</label>
-        <input class="form-control" asp-for="PhoneNumber">
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="Email">Email</label>
-        <input type="email" class="form-control" asp-for="Email">
-    </div>
-    
-    <input type="hidden" class="form-control" asp-for="UserId">
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}

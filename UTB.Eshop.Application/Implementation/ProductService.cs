@@ -76,7 +76,7 @@ namespace UTB.Eshop.Application.Implementation
 
             return edited;
 
-        }
+        }       
 
         public Product? SelectById(int id)
         {

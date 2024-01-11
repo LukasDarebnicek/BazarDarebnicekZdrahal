@@ -36,7 +36,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <!-- Přidání odkazu na Terms of Trade -->
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TermsOfTrade">Terms of Trade</a>
                         </li>
@@ -44,7 +44,7 @@
                         @if (User.Identity.IsAuthenticated == true && (User.IsInRole(nameof(Roles.Admin)) || User.IsInRole(nameof(Roles.Manager)) || User.IsInRole(nameof(Roles.Customer))))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Product" asp-action="Index">Advertisements</a>
                             </li>
                         }
                         

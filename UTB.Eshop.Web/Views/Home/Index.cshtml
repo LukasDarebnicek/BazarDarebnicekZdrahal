@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row">
-        <div id="categoryFilter" class="col-md-2 mb-4 fixed-top" style="margin-top: 60px; padding-left: 15px;">
+        <div id="categoryFilter" class="mb-4">
             <div><label>Filter by Category:</label></div>
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input category-filter" value="Auta">
@@ -47,68 +47,83 @@
         </div>
     </div>
 
-    <div class="col-md-10" style="margin-top: 60px; margin-left: 240px;">
-        <div class="text-center">
-            <h1 class="display-4">Bazar</h1>
-        </div>
-
-        @if (Model != null && Model.Carousels != null && Model.Carousels.Count > 0)
-        {
-            <div id="carouselExampleControls" class="carousel slide col-lg-6 mx-auto" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @for (int i = 0; i < Model.Carousels.Count; ++i)
-                    {
-                        string active = i == 0 ? "active" : "";
-                        <div class="carousel-item @active">
-                            <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
-                        </div>
-                    }
+    <div class="mb-4">
+                <label>Filter by Price:</label>
+                <div class="input-group">
+                    <span class="input-group-text">Od</span>
+                    <input type="number" class="form-control" id="priceFrom" placeholder="0">
+                    <span class="input-group-text">Do</span>
+                    <input type="number" class="form-control" id="priceTo" placeholder="Max">
+                    <button class="btn btn-primary" onclick="filterByPrice()">Filtruj</button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        }
 
-        @if (Model != null && Model.Products != null && Model.Products.Count > 0)
-        {
-            <section class="py-5">
-                <div class="container px-4 px-lg-5 mt-5">
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        @foreach (var product in Model.Products)
+    <div class="row justify-content-center">
+        <div class="col-md-10" style="margin-top: 60px;">
+            <div class="text-center">
+                <h1 class="display-4">Bazar</h1>
+            </div>
+
+            @if (Model != null && Model.Carousels != null && Model.Carousels.Count > 0)
+            {
+                <div id="carouselExampleControls" class="carousel slide col-lg-6 mx-auto" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.Carousels.Count; ++i)
                         {
-                            <div class="col mb-5 category-item" data-categories="@product.Kategory">
-                                <div class="card h-100 product-card">
-                                    <div class="product-image-container">
-                                        <img class="card-img-top" src="@product.ImageSrc" alt="..." />
-                                        <div class="product-hover-details">
-                                            <h5 class="fw-bolder text-white">@product.Name</h5>
-                                            <p class="text-white">@product.Description</p>
-                                            <p class="text-white">@product.Kategory</p>
-                                            <h6 class="text-dark text-white">@product.Price CZK</h6>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <h5 class="fw-bolder">@product.Name</h5>
-                                            <h6 class="text-dark">@product.Price CZK</h6>
-                                        </div>
-                                    </div>
-                                </div>
+                            string active = i == 0 ? "active" : "";
+                            <div class="carousel-item @active">
+                                <img src="@Model.Carousels[i].ImageSrc" class="d-block w-100" alt="@Model.Carousels[i].ImageAlt">
                             </div>
                         }
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-            </section>
-        }
+            }
+
+            @if (Model != null && Model.Products != null && Model.Products.Count > 0)
+            {
+                <section class="py-5">
+                    <div class="container px-4 px-lg-5 mt-5">
+                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                            @foreach (var product in Model.Products)
+                            {
+                                <div class="col mb-5 category-item" data-categories="@product.Kategory">
+                                    <div class="card h-100 product-card">
+                                        <div class="product-image-container">
+                                            <img class="card-img-top" src="@product.ImageSrc" alt="..." />
+                                            <div class="product-hover-details">
+                                               <!--<h5 class="fw-bolder text-white">@product.Name</h5>-->
+                                                <p class="text-white">@product.Description</p>
+                                                <!-- <p class="text-white">@product.Kategory</p>
+                                                <h6 class="text-dark text-white">@product.Price CZK</h6>-->
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <h5 class="fw-bolder">@product.Name</h5>
+                                                <h6 class="text-dark">@product.Price CZK</h6
+                                                <p class="text-dark">Telefon: @product.PhoneNumber</p>
+                                                <p class="text-dark">Email: <a href="mailto:@product.Email">@product.Email</a></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </section>
+            }
+        </div>
     </div>
 </div>
-</div>
+
 
 @section Scripts
     {
@@ -146,6 +161,21 @@
                 });
             });
         });
+
+        function filterByPrice() {
+            var priceFrom = parseFloat(document.getElementById("priceFrom").value) || 0;
+            var priceTo = parseFloat(document.getElementById("priceTo").value) || Number.POSITIVE_INFINITY;
+
+            var productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(function (card) {
+                var productPrice = parseFloat(card.querySelector('.text-dark').textContent.split(' ')[0]) || 0;
+                if (productPrice >= priceFrom && productPrice <= priceTo) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
 }
 
